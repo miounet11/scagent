@@ -1,0 +1,3 @@
+[console_scripts]
+shencha = src.agent:main
+shencha-agent = src.agent:main

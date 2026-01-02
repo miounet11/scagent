@@ -1,0 +1,17 @@
+# ShenCha Agent Dependencies
+
+# Claude Agent SDK - 官方 SDK (已发布)
+# https://github.com/anthropics/claude-agent-sdk-python
+claude-agent-sdk>=0.1.0
+
+# 异步支持
+anyio>=4.0.0
+aiofiles>=23.2.0
+
+# CLI 工具 (可选)
+click>=8.1.0
+rich>=13.7.0
+
+# 配置管理
+python-dotenv>=1.0.0
+pyyaml>=6.0.0

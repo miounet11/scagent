@@ -1,0 +1,332 @@
+Metadata-Version: 2.4
+Name: shencha-agent
+Version: 1.0.0
+Summary: AI-Powered Autonomous Code Audit Agent based on Claude Agent SDK
+Home-page: https://github.com/x-tavern/shencha-agent
+Author: X-Tavern Team
+Author-email: X-Tavern Team <dev@x-tavern.com>
+License: MIT
+Project-URL: Homepage, https://github.com/x-tavern/shencha-agent
+Project-URL: Documentation, https://github.com/x-tavern/shencha-agent#readme
+Project-URL: Repository, https://github.com/x-tavern/shencha-agent
+Project-URL: Issues, https://github.com/x-tavern/shencha-agent/issues
+Keywords: code-audit,ai,llm,claude,automation,agent
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: claude-agent-sdk>=0.1.0
+Requires-Dist: anyio>=4.0.0
+Requires-Dist: aiofiles>=23.2.0
+Requires-Dist: click>=8.1.0
+Requires-Dist: rich>=13.7.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: pyyaml>=6.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.23.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: isort>=5.12.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# ShenCha Agent (审查)
+
+```
+   _____ _                  _____ _
+  / ____| |                / ____| |
+ | (___ | |__   ___ _ __  | |    | |__   __ _
+  \___ \| '_ \ / _ \ '_ \ | |    | '_ \ / _` |
+  ____) | | | |  __/ | | || |____| | | | (_| |
+ |_____/|_| |_|\___|_| |_| \_____|_| |_|\__,_|
+
+ AI-Powered Autonomous Code Audit Agent
+ Based on Claude Agent SDK
+```
+
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+## 概述
+
+**ShenCha Agent** 是一个基于 Claude Agent SDK 构建的自主代码审计系统。它能够：
+
+- 🤖 **完全自主** - LLM 驱动的决策，无需人工干预
+- 🔍 **持续审计** - 72小时不间断运行，每3小时执行一次
+- 🧠 **持续学习** - 从每次审计中积累知识
+- 💬 **用户沟通** - 交互式对话，实时汇报进展
+- 🔧 **自动修复** - 安全地自动修复可修复的问题
+
+## 快速开始
+
+### 安装
+
+```bash
+# 从源码安装
+pip install -e .
+
+# 或使用 pip
+pip install shencha-agent
+```
+
+### 配置环境变量
+
+```bash
+# 创建 .env 文件
+cat > .env << EOF
+SHENCHA_LLM_URL=https://api.example.com/v1/chat/completions
+SHENCHA_API_KEY=your-api-key
+EOF
+```
+
+### 运行
+
+```bash
+# 交互模式（默认）
+shencha /path/to/project
+
+# 单次审计
+shencha /path/to/project --mode once
+
+# 持续审计（72小时）
+shencha /path/to/project --mode continuous --interval 3 --cycles 24
+```
+
+## 使用方式
+
+### 交互模式
+
+```bash
+$ shencha ./my-project
+
+💬 ShenCha 交互模式
+输入 'quit' 退出, 'audit' 运行审计, 'report' 生成报告
+
+你: 帮我检查一下安全问题
+Agent: 好的，我将扫描项目并检查安全问题...
+  🔧 使用工具: mcp__shencha__scan_project
+  🔧 使用工具: mcp__shencha__find_issues
+
+发现了 3 个安全问题：
+1. [CRITICAL] 硬编码密钥在 config.py:45
+2. [HIGH] SQL 注入风险在 db.py:123
+3. [MEDIUM] 未验证的用户输入在 api.py:67
+
+你: 帮我修复第一个问题
+Agent: 我将为您生成修复方案...
+```
+
+### 自动模式
+
+```bash
+# 单次审计
+$ shencha ./my-project --mode once
+
+============================================================
+🔍 审计周期 #1
+============================================================
+
+📊 审核报告生成完成
+   发现问题: 5
+   自动修复: 2
+   待处理: 3
+```
+
+### 持续审计
+
+```bash
+# 72小时持续审计
+$ shencha ./my-project --mode continuous
+
+🚀 启动持续审计模式
+   间隔: 3 小时
+   最大周期: 24
+
+============================================================
+🔍 审计周期 #1/24
+============================================================
+...
+
+⏰ 下次审计: 3 小时后
+```
+
+## 自定义工具
+
+ShenCha Agent 提供以下内置工具：
+
+| 工具 | 功能 |
+|------|------|
+| `analyze_file` | 深度分析单个代码文件 |
+| `scan_project` | 扫描项目结构和文件 |
+| `find_issues` | 使用模式匹配查找问题 |
+| `propose_fix` | 生成修复建议 |
+| `apply_fix` | 应用代码修复 |
+| `learn_pattern` | 学习新的问题模式 |
+| `get_knowledge` | 获取知识库内容 |
+| `save_insight` | 保存项目洞察 |
+| `generate_report` | 生成审计报告 |
+
+## 知识库
+
+ShenCha 会在项目目录下创建 `.shencha/` 目录存储：
+
+```
+.shencha/
+├── knowledge/
+│   ├── patterns.json    # 学习到的问题模式
+│   ├── fixes.json       # 修复历史
+│   ├── insights.json    # 项目洞察
+│   └── stats.json       # 统计数据
+└── reports/
+    ├── summary-*.md     # 摘要报告
+    ├── detailed-*.md    # 详细报告
+    └── final-*.md       # 最终报告
+```
+
+## 配置
+
+### 命令行参数
+
+```bash
+shencha [PROJECT_PATH] [OPTIONS]
+
+Options:
+  --mode [once|continuous|interactive]
+                          运行模式 (默认: interactive)
+  --interval FLOAT        持续模式间隔小时数 (默认: 3)
+  --cycles INTEGER        最大审计周期数 (默认: 24)
+  --config PATH           配置文件路径
+  --help                  显示帮助
+```
+
+### 环境变量
+
+| 变量 | 说明 |
+|------|------|
+| `SHENCHA_LLM_URL` | LLM API 端点 |
+| `SHENCHA_API_KEY` | API 密钥 |
+| `SHENCHA_MODEL` | 模型名称 (默认: claude-opus-4-5-20251101) |
+
+## API 使用
+
+```python
+import asyncio
+from shencha_agent import ShenChaAgent
+
+async def main():
+    # 创建 Agent
+    agent = ShenChaAgent(
+        project_path="./my-project",
+        llm_base_url="https://api.example.com/v1/chat/completions",
+        llm_api_key="your-api-key"
+    )
+
+    # 初始化
+    await agent.initialize()
+
+    # 运行单次审计
+    result = await agent.run_once()
+    print(f"发现问题: {result['issues_found']}")
+
+    # 或运行交互模式
+    await agent.run_interactive()
+
+asyncio.run(main())
+```
+
+## Hook 机制
+
+ShenCha 使用 Hook 实现自动决策：
+
+```python
+# PreToolUse Hook - 修复前验证
+async def pre_fix_hook(input_data, tool_use_id, context):
+    file_path = input_data.get("tool_input", {}).get("file_path", "")
+
+    # 测试文件自动批准
+    if "test" in file_path.lower():
+        return {}  # 允许执行
+
+    # 生产文件需要确认
+    return {}  # 或返回错误阻止执行
+
+# PostToolUse Hook - 工具执行后学习
+async def post_tool_hook(input_data, tool_use_id, context):
+    tool_name = input_data.get("tool_name", "")
+    knowledge.record_tool_usage(tool_name)
+    return {}
+```
+
+## 架构
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   ShenCha Agent                         │
+├─────────────────────────────────────────────────────────┤
+│                                                         │
+│  ┌─────────────┐                                        │
+│  │  Claude SDK │◄───── LLM 驱动决策 ─────┐              │
+│  └─────────────┘                         │              │
+│         │                                │              │
+│         ▼                                │              │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │              MCP Tools Server                    │   │
+│  │  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐   │   │
+│  │  │analyze │ │ scan   │ │ fix    │ │ learn  │   │   │
+│  │  │ file   │ │project │ │ code   │ │pattern │   │   │
+│  │  └────────┘ └────────┘ └────────┘ └────────┘   │   │
+│  └─────────────────────────────────────────────────┘   │
+│         │                                │              │
+│         ▼                                │              │
+│  ┌─────────────┐    ┌─────────────┐     │              │
+│  │ Knowledge   │◄───│   Hooks     │◄────┘              │
+│  │    Base     │    │  (Pre/Post) │                     │
+│  └─────────────┘    └─────────────┘                     │
+│         │                                               │
+│         ▼                                               │
+│  ┌─────────────┐                                        │
+│  │  Reporter   │───► Markdown/JSON 报告                 │
+│  └─────────────┘                                        │
+│                                                         │
+└─────────────────────────────────────────────────────────┘
+```
+
+## 开发
+
+```bash
+# 克隆仓库
+git clone https://github.com/x-tavern/shencha-agent.git
+cd shencha-agent
+
+# 安装开发依赖
+pip install -e ".[dev]"
+
+# 运行测试
+pytest
+
+# 格式化代码
+black src/
+isort src/
+```
+
+## 许可证
+
+MIT License - 详见 [LICENSE](./LICENSE)
+
+---
+
+**ShenCha** - 让代码审查自主化
+
+```
+审查不止，进化不息
+```
