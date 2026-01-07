@@ -1,4 +1,6 @@
-# ShenCha Agent (审查) v2.0
+# ShenCha - AI Code Audit Agent 🔍
+
+<div align="center">
 
 ```
    _____ _                  _____ _
@@ -8,357 +10,220 @@
   ____) | | | |  __/ | | || |____| | | | (_| |
  |_____/|_| |_|\___|_| |_| \_____|_| |_|\__,_|
 
- AI-Powered Autonomous Code Audit Agent
- With Multi-Expert Team
+ AI-Powered Code Audit • Security Scanner • Performance Analyzer
 ```
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](https://github.com/miounet11/scagent)
+[![Version](https://img.shields.io/badge/version-2.1.0-green.svg)](https://github.com/miounet11/scagent/releases)
+[![VS Code](https://img.shields.io/badge/VS%20Code-Extension-007ACC.svg)](./vscode-extension)
 
-## 概述
+**English** | [中文](./README_CN.md)
 
-**ShenCha Agent** 是一个基于 Claude Agent SDK 构建的自主代码审计系统。它能够：
+</div>
 
-- 🤖 **完全自主** - LLM 驱动的决策，无需人工干预
-- 🔍 **持续审计** - 72小时不间断运行，每3小时执行一次
-- 🧠 **持续学习** - 从每次审计中积累知识
-- 💬 **用户沟通** - 交互式对话，实时汇报进展
-- 🔧 **自动修复** - 安全地自动修复可修复的问题
+## 🚀 What is ShenCha?
 
-## v2.0 新特性：多专家审计团队
+**ShenCha** is an AI-powered autonomous code audit agent that helps developers find security vulnerabilities, performance issues, and code quality problems. Built on Claude AI, it provides:
 
-ShenCha v2.0 引入了强大的**多专家审计团队**，从多个维度对代码进行全方位审计：
+- 🔒 **Security Scanning** - Detect vulnerabilities in dependencies (npm audit, pip-audit, cargo audit)
+- ⚡ **Performance Analysis** - Find N+1 queries, complexity issues, bundle size problems
+- 🧪 **Test Coverage** - Analyze test coverage with pytest-cov and jest
+- 📊 **Beautiful Reports** - Generate HTML reports with actionable insights
+- 🤖 **Multi-Expert Team** - AI experts for UI, Architecture, Logic, Product, and Aesthetics
 
-| 专家 | 工具 | 专长 |
-|------|------|------|
-| 🎨 **UI大师** | `expert_ui_audit` | 组件结构、视觉一致性、响应式设计、无障碍性、对标 Apple/Stripe/Linear |
-| 📊 **产品经理** | `expert_product_audit` | 功能完整性、用户体验流程、边界情况、对标 Notion/Discord/Figma |
-| ✨ **审美大师** | `expert_aesthetics_audit` | 视觉层次、色彩运用、动效设计、情感化设计、包豪斯哲学 |
-| 🏛️ **架构师** | `expert_architect_audit` | 单一职责、依赖管理、设计模式、对标 Google/Meta/Netflix |
-| 🧠 **逻辑大师** | `expert_logic_audit` | 逻辑正确性、边界条件、状态转换、算法效率 |
-| 🌟 **综合审计** | `multi_expert_audit` | 同时调用多位专家进行全方位审计 |
+## ✨ Features
 
-### 多模型协作
+| Feature | Description |
+|---------|-------------|
+| 🔍 **Vulnerability Scanner** | npm audit, pip-audit, cargo audit integration |
+| 📈 **Performance Analyzer** | Detect N+1 queries, deep nesting, slow patterns |
+| 🧪 **Coverage Analysis** | pytest-cov, jest coverage reports |
+| 📄 **HTML Reports** | Beautiful dark-themed audit reports |
+| 🌐 **i18n Support** | English and Chinese languages |
+| 💻 **VS Code Extension** | Audit directly from your editor |
+| 🤖 **Multi-Expert AI** | 5 specialized AI experts for comprehensive audits |
 
-ShenCha 使用多个 AI 模型，各取所长：
+## 📦 Quick Start
 
-- **Claude**: 代码分析、安全审计、逻辑验证
-- **Gemini**: 性能分析、架构建议、UI/UX 审计
-- **Grok**: 创意功能、产品洞察、用户体验改进
-
-## 快速开始
-
-### 安装
+### One-Line Install
 
 ```bash
-# 从源码安装
-pip install -e .
+curl -fsSL https://raw.githubusercontent.com/miounet11/scagent/main/install.sh | bash
+```
 
-# 或使用 pip
+### Manual Install
+
+```bash
 pip install shencha-agent
+
+# Or from source
+git clone https://github.com/miounet11/scagent.git
+cd scagent
+pip install -e .
 ```
 
-### 配置环境变量
+### Configuration
 
 ```bash
-# 创建 .env 文件
-cat > .env << EOF
-SHENCHA_LLM_URL=https://api.example.com/v1/chat/completions
-SHENCHA_API_KEY=your-api-key
-EOF
+# Set API key (choose one)
+export ANTHROPIC_API_KEY=your-key
+# or
+export SHENCHA_API_KEY=your-key
+
+# Or use interactive config
+shencha config
 ```
 
-### 运行
+### Run Audit
 
 ```bash
-# 交互模式（默认）
-shencha /path/to/project
+# Audit current directory
+shencha
 
-# 单次审计
-shencha /path/to/project --mode once
+# Audit specific project
+shencha ./my-project
 
-# 持续审计（72小时）
-shencha /path/to/project --mode continuous --interval 3 --cycles 24
+# Quick audit mode
+shencha -q
+
+# Check environment
+shencha doctor
 ```
 
-## 使用方式
+## 🔧 VS Code Extension
 
-### 交互模式
+Install the VS Code extension for in-editor auditing:
 
 ```bash
-$ shencha ./my-project
-
-💬 ShenCha 交互模式
-输入 'quit' 退出, 'audit' 运行审计, 'report' 生成报告
-
-你: 用多专家模式审计首页组件
-Agent: 好的，我将召集专家团队审计首页组件...
-  🔧 使用工具: mcp__shencha__multi_expert_audit
-
-# 🌟 多专家综合审计报告
-
-## 🎨 UI大师
-- 组件结构合理，但建议拆分成更小的子组件
-- 响应式断点可以更细致...
-
-## 🏛️ 架构师
-- 建议将数据获取逻辑抽离到自定义 Hook
-- 状态管理可以使用 Context 优化...
-
-## 🧠 逻辑大师
-- 发现一处潜在的空指针异常
-- 建议添加边界值检查...
+cd vscode-extension
+npm install && npm run compile
 ```
 
-### 自动模式
+Then press F5 to launch Extension Development Host.
 
-```bash
-# 单次审计
-$ shencha ./my-project --mode once
+**Commands:**
+- `ShenCha: Audit Current File`
+- `ShenCha: Audit Project`
+- `ShenCha: Show Report`
 
-============================================================
-🔍 审计周期 #1
-============================================================
+## 📊 Sample Output
 
-📊 审核报告生成完成
-   发现问题: 5
-   自动修复: 2
-   待处理: 3
+```
+╭──────────────────────────────────────────────────────────────╮
+│                      审计摘要 / Audit Summary                 │
+├──────────────────────────────────────────────────────────────┤
+│ 类别              │ 数量  │ 状态                              │
+├──────────────────────────────────────────────────────────────┤
+│ 扫描文件          │ 42    │ ✓                                 │
+│ 发现问题          │ 3     │ !                                 │
+│ 依赖漏洞          │ 0     │ ✓                                 │
+│ 性能问题          │ 2     │ i                                 │
+╰──────────────────────────────────────────────────────────────╯
+
+📄 HTML 报告: .shencha/reports/report-20250107-223456.html
 ```
 
-### 持续审计
+## 🤖 Multi-Expert AI Team
 
-```bash
-# 72小时持续审计
-$ shencha ./my-project --mode continuous
+ShenCha v2.1 includes 5 specialized AI experts:
 
-🚀 启动持续审计模式
-   间隔: 3 小时
-   最大周期: 24
+| Expert | Focus Area |
+|--------|------------|
+| 🎨 **UI Master** | Component structure, responsive design, accessibility |
+| 📊 **Product Manager** | User experience, feature completeness, edge cases |
+| ✨ **Aesthetics Master** | Visual hierarchy, color theory, animations |
+| 🏛️ **Architect** | Design patterns, SOLID principles, scalability |
+| 🧠 **Logic Master** | Algorithm correctness, edge cases, state management |
 
-============================================================
-🔍 审计周期 #1/24
-============================================================
-...
+## 🔒 Security Scanners
 
-⏰ 下次审计: 3 小时后
-```
+| Scanner | Languages | Command |
+|---------|-----------|---------|
+| npm audit | JavaScript/TypeScript | Auto-detected |
+| pip-audit | Python | Auto-detected |
+| cargo audit | Rust | Auto-detected |
 
-## 自定义工具
+## 📈 Performance Analysis
 
-ShenCha Agent 提供以下内置工具：
+Detects common performance anti-patterns:
 
-### 基础工具
+- ⚠️ Nested loops O(n²)
+- ⚠️ N+1 query patterns
+- ⚠️ Serial await (should use Promise.all)
+- ⚠️ SELECT * queries
+- ⚠️ Deep nesting (>5 levels)
+- ⚠️ Large bundle sizes
 
-| 工具 | 功能 |
-|------|------|
-| `analyze_file` | 深度分析单个代码文件 |
-| `scan_project` | 扫描项目结构和文件 |
-| `find_issues` | 使用模式匹配查找问题 |
-| `propose_fix` | 生成修复建议 |
-| `apply_fix` | 应用代码修复 |
-| `learn_pattern` | 学习新的问题模式 |
-| `get_knowledge` | 获取知识库内容 |
-| `save_insight` | 保存项目洞察 |
-| `generate_report` | 生成审计报告 |
+## 🌐 Supported Languages
 
-### 多模型工具
+- Python (.py)
+- JavaScript (.js)
+- TypeScript (.ts, .tsx)
+- React/Vue components
+- Rust (.rs)
 
-| 工具 | 功能 |
-|------|------|
-| `ask_gemini` | 使用 Gemini 进行性能/架构分析 |
-| `ask_grok` | 使用 Grok 进行产品/创意洞察 |
-| `multi_model_analysis` | 三模型综合分析 |
-
-### 多专家工具 (v2.0)
-
-| 工具 | 功能 |
-|------|------|
-| `expert_ui_audit` | 🎨 UI大师视角审计 |
-| `expert_product_audit` | 📊 产品经理视角审计 |
-| `expert_aesthetics_audit` | ✨ 审美大师视角审计 |
-| `expert_architect_audit` | 🏛️ 架构师视角审计 |
-| `expert_logic_audit` | 🧠 逻辑大师视角审计 |
-| `multi_expert_audit` | 🌟 多专家综合审计 |
-
-## 知识库
-
-ShenCha 会在项目目录下创建 `.shencha/` 目录存储：
+## 📁 Project Structure
 
 ```
 .shencha/
+├── reports/
+│   └── report-*.html    # HTML audit reports
 ├── knowledge/
-│   ├── patterns.json    # 学习到的问题模式
-│   ├── fixes.json       # 修复历史
-│   ├── insights.json    # 项目洞察（含专家来源）
-│   └── stats.json       # 统计数据
-└── reports/
-    ├── summary-*.md     # 摘要报告
-    ├── detailed-*.md    # 详细报告
-    └── final-*.md       # 最终报告
+│   ├── patterns.json    # Learned patterns
+│   ├── fixes.json       # Fix history
+│   └── insights.json    # Project insights
+└── config.yaml          # Local config
 ```
 
-### 问题模式分类
-
-v2.0 新增多种问题类型：
-
-- `security` - 安全问题
-- `performance` - 性能问题
-- `quality` - 代码质量
-- `deprecated` - 已弃用 API
-- `architecture` - 架构问题
-- `ui_design` - UI 设计问题
-- `aesthetics` - 美学问题
-- `code_logic` - 逻辑问题
-- `product_logic` - 产品逻辑问题
-
-## 配置
-
-### 命令行参数
+## 🛠️ CLI Commands
 
 ```bash
-shencha [PROJECT_PATH] [OPTIONS]
+shencha [PROJECT] [OPTIONS]
+
+Commands:
+  shencha              # Interactive audit
+  shencha config       # Configuration wizard
+  shencha doctor       # Environment check
+  shencha pr REPO NUM  # Review GitHub PR
 
 Options:
-  --mode [once|continuous|interactive]
-                          运行模式 (默认: interactive)
-  --interval FLOAT        持续模式间隔小时数 (默认: 3)
-  --cycles INTEGER        最大审计周期数 (默认: 24)
-  --config PATH           配置文件路径
-  --help                  显示帮助
+  -m, --mode [interactive|once|continuous]
+  -q, --quick          # Quick audit mode
+  --lang [en|zh]       # Report language
 ```
 
-### 环境变量
+## 🔗 Integrations
 
-| 变量 | 说明 |
-|------|------|
-| `SHENCHA_LLM_URL` | LLM API 端点 |
-| `SHENCHA_API_KEY` | API 密钥 |
-| `SHENCHA_MODEL` | 模型名称 (默认: claude-opus-4-5-20251101) |
+- **GitHub Actions** - Auto-audit on PR
+- **VS Code** - In-editor auditing
+- **CI/CD** - Pipeline integration
 
-## API 使用
+## 📖 Documentation
 
-```python
-import asyncio
-from shencha_agent import ShenChaAgent
+- [Quick Start Guide](./QUICKSTART.md)
+- [API Documentation](./docs/api.md)
+- [VS Code Extension](./vscode-extension/README.md)
 
-async def main():
-    # 创建 Agent
-    agent = ShenChaAgent(
-        project_path="./my-project",
-        llm_base_url="https://api.example.com/v1/chat/completions",
-        llm_api_key="your-api-key"
-    )
-
-    # 初始化
-    await agent.initialize()
-
-    # 运行单次审计
-    result = await agent.run_once()
-    print(f"发现问题: {result['issues_found']}")
-
-    # 或运行交互模式
-    await agent.run_interactive()
-
-asyncio.run(main())
-```
-
-## 审计策略
-
-ShenCha 根据文件类型自动选择合适的专家组合：
-
-| 文件类型 | 推荐专家 |
-|----------|----------|
-| 前端组件 (.tsx, .jsx) | UI大师 + 审美大师 + 产品经理 |
-| 后端服务 (.ts, .py) | 架构师 + 逻辑大师 |
-| API 路由 | 架构师 + 逻辑大师 + 安全分析 |
-| 核心业务逻辑 | 多专家综合审计 |
-
-## 架构
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    ShenCha Agent v2.0                       │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ┌─────────────┐                                            │
-│  │  Claude SDK │◄───── LLM 驱动决策 ─────┐                  │
-│  └─────────────┘                         │                  │
-│         │                                │                  │
-│         ▼                                │                  │
-│  ┌───────────────────────────────────────────────────────┐ │
-│  │                    MCP Tools Server                    │ │
-│  │  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐         │ │
-│  │  │analyze │ │ scan   │ │ fix    │ │ learn  │         │ │
-│  │  │ file   │ │project │ │ code   │ │pattern │         │ │
-│  │  └────────┘ └────────┘ └────────┘ └────────┘         │ │
-│  │                                                        │ │
-│  │  ┌──────────────────────────────────────────────────┐ │ │
-│  │  │         🌟 Multi-Expert Team (v2.0)              │ │ │
-│  │  │  ┌────┐ ┌────┐ ┌────┐ ┌────┐ ┌────┐            │ │ │
-│  │  │  │ UI │ │ PM │ │美学│ │架构│ │逻辑│            │ │ │
-│  │  │  │大师│ │经理│ │大师│ │ 师 │ │大师│            │ │ │
-│  │  │  └────┘ └────┘ └────┘ └────┘ └────┘            │ │ │
-│  │  └──────────────────────────────────────────────────┘ │ │
-│  └───────────────────────────────────────────────────────┘ │
-│         │                                │                  │
-│         ▼                                │                  │
-│  ┌─────────────┐    ┌─────────────┐     │                  │
-│  │ Knowledge   │◄───│   Hooks     │◄────┘                  │
-│  │    Base     │    │  (Pre/Post) │                         │
-│  └─────────────┘    └─────────────┘                         │
-│         │                                                   │
-│         ▼                                                   │
-│  ┌─────────────┐                                            │
-│  │  Reporter   │───► Markdown/JSON 报告                     │
-│  └─────────────┘                                            │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## PM2 部署
+## 🤝 Contributing
 
 ```bash
-# 使用 PM2 持续运行
-pm2 start /usr/local/bin/shencha \
-  --name shencha-agent \
-  -- /path/to/project --mode continuous --interval 3
-
-# 查看状态
-pm2 status shencha-agent
-
-# 查看日志
-pm2 logs shencha-agent
-```
-
-## 开发
-
-```bash
-# 克隆仓库
 git clone https://github.com/miounet11/scagent.git
 cd scagent
-
-# 安装开发依赖
 pip install -e ".[dev]"
-
-# 运行测试
 pytest
-
-# 格式化代码
-black src/
-isort src/
 ```
 
-## 许可证
+## 📄 License
 
-MIT License - 详见 [LICENSE](./LICENSE)
+MIT License - see [LICENSE](./LICENSE)
 
 ---
 
-**ShenCha v2.0** - 多专家团队，全方位审计
+<div align="center">
 
-```
-审查不止，进化不息
-Expert Team, Comprehensive Audit
-```
+**ShenCha v2.1** - AI-Powered Code Audit Agent
+
+[GitHub](https://github.com/miounet11/scagent) • [Issues](https://github.com/miounet11/scagent/issues) • [Releases](https://github.com/miounet11/scagent/releases)
+
+</div>
