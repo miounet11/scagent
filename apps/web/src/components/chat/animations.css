@@ -1,0 +1,649 @@
+/**
+ * Chat Interaction Animations
+ *
+ * Provides smooth, performant animations for chat UI interactions.
+ * Uses transform and opacity for GPU acceleration.
+ * Respects prefers-reduced-motion for accessibility.
+ */
+
+/* ============================================
+   SEND BUTTON ANIMATIONS
+   ============================================ */
+
+/* Click feedback animation */
+.send-btn-click {
+  animation: send-btn-click 0.15s ease-out;
+}
+
+@keyframes send-btn-click {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.85); }
+  100% { transform: scale(1); }
+}
+
+/* Success feedback - green pulse */
+.send-btn-success {
+  animation: send-btn-success 0.4s ease-out;
+}
+
+@keyframes send-btn-success {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px 10px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Error feedback - shake */
+.send-btn-error {
+  animation: send-btn-error 0.5s ease-out;
+}
+
+@keyframes send-btn-error {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); }
+}
+
+/* Sending state - pulse */
+.send-btn-sending {
+  animation: send-btn-sending 1.5s ease-in-out infinite;
+}
+
+@keyframes send-btn-sending {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}
+
+/* ============================================
+   MESSAGE FEEDBACK ANIMATIONS
+   ============================================ */
+
+/* Message sent successfully */
+.message-sent-success {
+  animation: message-sent-success 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes message-sent-success {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Message send failed */
+.message-sent-error {
+  animation: message-sent-error 1s ease-out;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+@keyframes message-sent-error {
+  0% { border-color: rgba(239, 68, 68, 0); }
+  25% { border-color: rgba(239, 68, 68, 0.8); }
+  75% { border-color: rgba(239, 68, 68, 0.8); }
+  100% { border-color: rgba(239, 68, 68, 0.3); }
+}
+
+/* Message retry indicator */
+.message-retry-pulse {
+  animation: message-retry-pulse 2s ease-in-out infinite;
+}
+
+@keyframes message-retry-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(251, 191, 36, 0);
+  }
+}
+
+/* ============================================
+   SCROLL TO BOTTOM BUTTON
+   ============================================ */
+
+/* Bounce animation for attention */
+.scroll-btn-bounce {
+  animation: scroll-btn-bounce 0.6s ease-in-out infinite;
+}
+
+@keyframes scroll-btn-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-6px); }
+}
+
+/* Smooth appear animation */
+.scroll-btn-appear {
+  animation: scroll-btn-appear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scroll-btn-appear {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Hover lift effect */
+.scroll-btn-hover {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.scroll-btn-hover:hover {
+  transform: translateX(-50%) translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 24px rgba(245, 197, 66, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   INPUT FOCUS ANIMATIONS
+   ============================================ */
+
+/* Focus ring animation */
+.input-focus-animate {
+  transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+.input-focus-animate:focus {
+  animation: input-focus-ring 0.2s ease-out forwards;
+}
+
+@keyframes input-focus-ring {
+  0% { box-shadow: 0 0 0 0 rgba(245, 197, 66, 0.4); }
+  100% { box-shadow: 0 0 0 3px rgba(245, 197, 66, 0.15), 0 0 12px rgba(245, 197, 66, 0.2); }
+}
+
+/* Input glow on typing */
+.input-typing-glow {
+  animation: input-typing-glow 2s ease-in-out infinite;
+}
+
+@keyframes input-typing-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(245, 197, 66, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.5), 0 0 15px rgba(245, 197, 66, 0.2);
+  }
+}
+
+/* ============================================
+   MESSAGE ACTION BUTTONS
+   ============================================ */
+
+/* Hover scale effect */
+.action-btn-hover {
+  transition: transform 0.15s ease-out, background-color 0.15s ease-out, color 0.15s ease-out;
+  will-change: transform;
+}
+
+.action-btn-hover:hover {
+  transform: scale(1.1);
+  background-color: rgba(245, 197, 66, 0.12);
+  color: #f5c542;
+}
+
+.action-btn-hover:active {
+  transform: scale(0.95);
+}
+
+/* Copy success feedback */
+.action-btn-copy-success {
+  animation: action-btn-copy-success 0.3s ease-out;
+}
+
+@keyframes action-btn-copy-success {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Delete button danger hover */
+.action-btn-danger:hover {
+  background-color: rgba(239, 68, 68, 0.12) !important;
+  color: rgba(239, 68, 68, 0.9) !important;
+}
+
+/* Ripple effect for touch feedback */
+.action-btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.action-btn-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(245, 197, 66, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.action-btn-ripple:active::after {
+  animation: ripple-effect 0.6s ease-out;
+}
+
+@keyframes ripple-effect {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   MESSAGE CONTEXT MENU
+   ============================================ */
+
+/* Menu appear animation */
+.context-menu-appear {
+  animation: context-menu-appear 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes context-menu-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Menu item hover */
+.context-menu-item {
+  transition: background-color 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.context-menu-item:hover {
+  background-color: rgba(245, 197, 66, 0.08);
+}
+
+.context-menu-item:active {
+  transform: scale(0.98);
+}
+
+/* ============================================
+   LOADING STATES
+   ============================================ */
+
+/* Skeleton shimmer */
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .send-btn-click,
+  .send-btn-success,
+  .send-btn-error,
+  .send-btn-sending,
+  .message-sent-success,
+  .message-sent-error,
+  .message-retry-pulse,
+  .scroll-btn-bounce,
+  .scroll-btn-appear,
+  .input-focus-animate,
+  .input-typing-glow,
+  .action-btn-hover,
+  .action-btn-copy-success,
+  .context-menu-appear,
+  .skeleton-shimmer {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Provide instant feedback instead */
+  .send-btn-success {
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+  }
+
+  .send-btn-error {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.3);
+  }
+
+  .action-btn-hover:hover {
+    transform: none;
+    background-color: rgba(245, 197, 66, 0.15);
+  }
+
+  .scroll-btn-hover:hover {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+
+/* GPU acceleration hints */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* Contain layout for better performance */
+.contain-layout {
+  contain: layout style;
+}
+
+/* Optimize for animations */
+.optimize-animation {
+  will-change: transform, opacity;
+}
+
+/* Remove will-change after animation completes */
+.animation-complete {
+  will-change: auto;
+}
+
+/* ============================================
+   NEW MESSAGE INDICATOR ANIMATIONS
+   ============================================ */
+
+/* Indicator appear with bounce */
+.new-msg-indicator-appear {
+  animation: new-msg-indicator-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes new-msg-indicator-appear {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px) scale(0.8);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-4px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* Attention pulse for new messages */
+.new-msg-pulse {
+  animation: new-msg-pulse 2s ease-in-out infinite;
+}
+
+@keyframes new-msg-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(245, 197, 66, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(245, 197, 66, 0.5), 0 0 0 4px rgba(245, 197, 66, 0.1);
+  }
+}
+
+/* Badge count pop animation */
+.badge-count-pop {
+  animation: badge-count-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes badge-count-pop {
+  0% { transform: scale(0.5); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ============================================
+   INPUT FOCUS GLOW ANIMATIONS
+   ============================================ */
+
+/* Enhanced focus glow for chat input */
+.input-focus-glow {
+  animation: input-focus-glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes input-focus-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(245, 197, 66, 0.15), 0 0 15px rgba(245, 197, 66, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(245, 197, 66, 0.2), 0 0 25px rgba(245, 197, 66, 0.15);
+  }
+}
+
+/* ============================================
+   EMOTION SELECTOR ANIMATIONS
+   ============================================ */
+
+/* Emotion option hover effect */
+.emotion-option-hover {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.emotion-option-hover:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.emotion-option-hover:active {
+  transform: scale(0.95);
+}
+
+/* Emotion change transition */
+.emotion-change {
+  animation: emotion-change 0.3s ease-out;
+}
+
+@keyframes emotion-change {
+  0% {
+    transform: scale(0.8) rotate(-10deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   CREATIVE DIRECTIVE PILL ANIMATIONS
+   ============================================ */
+
+/* Pill appear animation */
+.directive-pill-appear {
+  animation: directive-pill-appear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes directive-pill-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Pill remove animation */
+.directive-pill-remove {
+  animation: directive-pill-remove 0.2s ease-out forwards;
+}
+
+@keyframes directive-pill-remove {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translateX(-10px);
+  }
+}
+
+/* ============================================
+   STREAMING MESSAGE ANIMATIONS
+   ============================================ */
+
+/* Streaming cursor blink */
+.streaming-cursor {
+  animation: streaming-cursor-blink 1s step-end infinite;
+}
+
+@keyframes streaming-cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Text reveal animation for streaming */
+.text-reveal {
+  animation: text-reveal 0.1s ease-out;
+}
+
+@keyframes text-reveal {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* ============================================
+   TOOLTIP & POPOVER ANIMATIONS
+   ============================================ */
+
+/* Tooltip fade in */
+.tooltip-fade-in {
+  animation: tooltip-fade-in 0.2s ease-out;
+}
+
+@keyframes tooltip-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Popover scale in */
+.popover-scale-in {
+  animation: popover-scale-in 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes popover-scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   TOUCH FEEDBACK ANIMATIONS
+   ============================================ */
+
+/* Touch press feedback */
+.touch-press {
+  transition: transform 0.1s ease-out;
+}
+
+.touch-press:active {
+  transform: scale(0.97);
+}
+
+/* Long press indicator */
+.long-press-indicator {
+  animation: long-press-fill 0.5s linear forwards;
+}
+
+@keyframes long-press-fill {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* ============================================
+   REDUCED MOTION - ADDITIONAL RULES
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .new-msg-indicator-appear,
+  .new-msg-pulse,
+  .badge-count-pop,
+  .input-focus-glow,
+  .emotion-option-hover,
+  .emotion-change,
+  .directive-pill-appear,
+  .directive-pill-remove,
+  .streaming-cursor,
+  .text-reveal,
+  .tooltip-fade-in,
+  .popover-scale-in,
+  .touch-press,
+  .long-press-indicator {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Provide instant visual feedback */
+  .new-msg-pulse {
+    box-shadow: 0 4px 16px rgba(245, 197, 66, 0.4);
+  }
+
+  .emotion-option-hover:hover {
+    transform: none;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
